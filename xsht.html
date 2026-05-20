@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>销售合同表 · 长沙矿山院 数字化企业大脑</title>
+<link rel="stylesheet" href="shared.css" />
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+</head>
+<body>
+
+<header class="brand-bar">
+  <div class="brand-logo">
+    <span class="name">长沙矿山院</span>
+    <span class="sub">
+      <span class="sub-zh">数字化企业大脑</span>
+      <span class="sub-en">DIGITAL ENTERPRISE BRAIN</span>
+    </span>
+  </div>
+  <div class="brand-pills">
+    <span class="brand-pill"><span class="ico">★</span>领导专属门户</span>
+    <span class="brand-pill"><span class="ico i i-switch"></span>切换系统</span>
+  </div>
+  <div class="brand-right">
+    <div class="brand-user">
+      <span class="avatar">项</span>
+      <span class="info">
+        <span class="role">项目管理员 <span class="caret i i-down"></span></span>
+        <span class="org">长沙矿山院</span>
+      </span>
+    </div>
+  </div>
+</header>
+
+<nav class="tab-bar">
+  <div class="tab-search">
+    <span>菜单搜索</span>
+    <span class="ico-search i i-search"></span>
+  </div>
+  <div class="tab-list">
+    <a class="tab-item home" href="#">首页</a>
+    <a class="tab-item" href="bmtj.html">部门统计表 <span class="close i i-close"></span></a>
+    <a class="tab-item" href="xmhz.html">项目汇总表 <span class="close i i-close"></span></a>
+    <a class="tab-item" href="xmfk.html">项目付款表 <span class="close i i-close"></span></a>
+    <a class="tab-item" href="cght.html">采购合同表 <span class="close i i-close"></span></a>
+    <a class="tab-item active" href="xsht.html">销售合同表 <span class="close i i-close"></span></a>
+  </div>
+  <span class="tab-more i i-down"></span>
+</nav>
+
+<div class="layout">
+  <aside class="side-menu">
+    <div class="menu-section">
+      <div class="menu-l1"><span class="ico">👤</span>人力资源管理<span class="caret i i-down"></span></div>
+    </div>
+    <div class="menu-section">
+      <div class="menu-l1"><span class="ico">💰</span>财务管理<span class="caret i i-down"></span></div>
+    </div>
+    <div class="menu-section expanded">
+      <div class="menu-l1 active"><span class="ico">📋</span>项目管理<span class="caret i i-down"></span></div>
+      <div class="menu-l2-wrap">
+        <div class="menu-l2">项目列表</div>
+        <div class="menu-l2">项目月报</div>
+        <div class="menu-l2-block expanded">
+          <div class="menu-l2 expanded active">统一报表<span class="caret i i-down"></span></div>
+          <div class="menu-l3-wrap">
+            <a class="menu-l3" href="bmtj.html">部门统计表</a>
+            <a class="menu-l3" href="xmhz.html">项目汇总表</a>
+            <a class="menu-l3" href="xmfk.html">项目付款表</a>
+            <a class="menu-l3" href="cght.html">采购合同表</a>
+            <a class="menu-l3 active" href="xsht.html">销售合同表</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="menu-section">
+      <div class="menu-l1"><span class="ico">🔬</span>科研管理<span class="caret i i-down"></span></div>
+    </div>
+  </aside>
+
+  <main class="content">
+
+    <!-- 筛选条 -->
+    <section class="filter-bar">
+      <div class="field">
+        <label>合同名称</label>
+        <input type="text" placeholder="请输入" />
+      </div>
+      <div class="field">
+        <label>合同编号</label>
+        <input type="text" placeholder="请输入" />
+      </div>
+      <div class="field">
+        <label>项目名称</label>
+        <input type="text" placeholder="请输入" />
+      </div>
+      <div class="filter-actions">
+        <button class="btn btn-primary"><span class="i i-search"></span>查询</button>
+        <button class="btn">重置</button>
+        <button class="btn-text">展开<span class="caret i i-down"></span></button>
+      </div>
+    </section>
+
+    <!-- 顶部统计区 -->
+    <section class="stats-panel">
+      <div class="stats-head">
+        <div class="stats-title">
+          周期统计
+          <span class="hint">默认本月，可切换周期范围</span>
+        </div>
+        <div class="stats-period" id="periodChips">
+          <span class="chip on" data-period="month">本月</span>
+          <span class="chip" data-period="last-month">上月</span>
+          <span class="chip" data-period="quarter">本季度</span>
+          <span class="chip" data-period="year">本年</span>
+          <span class="sep"></span>
+          <input type="date" value="2026-05-01" />
+          <span class="range-to">至</span>
+          <input type="date" value="2026-05-19" />
+          <span class="chip">查询</span>
+        </div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card c-blue">
+          <div class="label"><span class="ico i i-doc"></span>销售合同数量</div>
+          <div class="value" data-key="count">2,144<span class="unit">份</span></div>
+          <div class="trend">较上月 <span class="up">▲ 1.2%</span></div>
+        </div>
+        <div class="stat-card c-orange">
+          <div class="label"><span class="ico i i-money"></span>销售合同金额</div>
+          <div class="value" data-key="amount">418,924.86<span class="unit">万元</span></div>
+          <div class="trend">较上月 <span class="up">▲ 1.9%</span></div>
+        </div>
+        <div class="stat-card c-cyan">
+          <div class="label"><span class="ico i i-money"></span>保有合同额</div>
+          <div class="value" data-key="retainAmount">412,753.19<span class="unit">万元</span></div>
+          <div class="trend">较上月 <span class="up">▲ 1.5%</span></div>
+        </div>
+        <div class="stat-card c-green">
+          <div class="label"><span class="ico i i-money"></span>累计收款金额</div>
+          <div class="value" data-key="receivedTotal">198,452.86<span class="unit">万元</span></div>
+          <div class="trend">较上月 <span class="up">▲ 2.4%</span></div>
+        </div>
+        <div class="stat-card c-purple">
+          <div class="label"><span class="ico i i-trend"></span>收款比例</div>
+          <div class="value" data-key="receiveRate">47.4<span class="unit">%</span></div>
+          <div class="trend">较上月 <span class="up">▲ 0.3pp</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ★ 图表分析区 -->
+    <section class="charts-panel">
+      <div class="chart-card">
+        <div class="chart-title"><span class="title-text">项目类型占比</span><span class="title-hint">按 销售合同金额</span></div>
+        <div class="chart-body" id="chartSalesType"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title"><span class="title-text">各事业部销售合同占比</span><span class="title-hint">按 销售合同金额</span></div>
+        <div class="chart-body" id="chartDeptSales"></div>
+      </div>
+      <div class="chart-card span-2">
+        <div class="chart-title"><span class="title-text">月度新签销售合同</span><span class="title-hint">柱=份数 · 折线=金额(万元)</span></div>
+        <div class="chart-body" id="chartSalesTrend"></div>
+      </div>
+    </section>
+
+    <!-- 工具栏 -->
+    <div class="toolbar">
+      <button class="btn">导出</button>
+      <div class="tools-right">
+        <span class="icon-btn i i-refresh" title="刷新"></span>
+        <span class="icon-btn i i-sort" title="排序"></span>
+        <span class="icon-btn i i-cog" title="列设置"></span>
+      </div>
+    </div>
+
+    <!-- 表格 -->
+    <div class="table-wrap">
+      <table class="report">
+        <thead>
+          <tr>
+            <th class="col-narrow">序号</th>
+            <th>合同编号</th>
+            <th>合同名称</th>
+            <th>项目名称</th>
+            <th>项目编号</th>
+            <th>项目归属部门</th>
+            <th>项目类型</th>
+            <th>项目细分类</th>
+            <th>项目等级</th>
+            <th>经办人</th>
+            <th>合同起始日期</th>
+            <th>合同到期日期</th>
+            <th>客户名称</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="num">1</td><td>202601QT0004</td><td><span class="cell-clip">湖南株冶有色金属…</span></td><td><span class="cell-clip">湖南株冶有色金属…</span></td><td>260484</td><td>数字与智能化事业部</td><td>工程类</td><td>设备供货</td><td>事业部级项目</td><td>刘晔</td><td>2026-01-31</td><td>2027-01-31</td><td></td></tr>
+          <tr><td class="num">2</td><td>202601GC0001</td><td><span class="cell-clip">福建金东矿业股份…</span></td><td><span class="cell-clip">福建金东矿业股份…</span></td><td>261460</td><td>工程设计院</td><td>工程类</td><td>工程设计项目</td><td>事业部级项目</td><td>胡晓君</td><td>2026-01-05</td><td></td><td><span class="cell-clip">福建金东矿业股份…</span></td></tr>
+          <tr><td class="num">3</td><td>202512KY0031</td><td><span class="cell-clip">单晶矿矿业矿矿规模…</span></td><td><span class="cell-clip">单晶矿矿业矿矿规模…</span></td><td>261416</td><td>采矿技术与装备…</td><td>科研类</td><td>技术开发项目</td><td>事业部级项目</td><td>晴梅相</td><td>2025-12-10</td><td>2026-05-10</td><td><span class="cell-clip">张沿海池西普西尔…</span></td></tr>
+          <tr><td class="num">4</td><td>202512QT0026</td><td><span class="cell-clip">蒙金矿业充填备品…</span></td><td><span class="cell-clip">蒙金矿业充填备品…</span></td><td>261422</td><td>充填与固废资源化…</td><td>工程类</td><td>产品销售</td><td>室（所）级项目</td><td>姚潭礼</td><td>2025-12-30</td><td>2026-02-15</td><td><span class="cell-clip">镶黄旗繁金矿业有限…</span></td></tr>
+          <tr><td class="num">5</td><td>202512GC0014</td><td><span class="cell-clip">云南中工色色金属…</span></td><td><span class="cell-clip">云南中工色色金属…</span></td><td>261409</td><td>充填与固废资源化…</td><td>工程类</td><td>工程设计项目</td><td>事业部级项目</td><td>文亲贤</td><td>2025-12-31</td><td>2026-04-01</td><td><span class="cell-clip">中汇色色金属矿业…</span></td></tr>
+          <tr><td class="num">6</td><td>202512KY0019</td><td><span class="cell-clip">充填系统外投改造…</span></td><td><span class="cell-clip">充填系统外投改造…</span></td><td>260233</td><td>数字与智能化事业部</td><td>科研类</td><td>技术开发项目</td><td>事业部级项目</td><td>徐睿</td><td>2025-12-31</td><td>2026-04-01</td><td><span class="cell-clip">河北中金钢河南有…</span></td></tr>
+          <tr><td class="num">7</td><td>202512QT0025</td><td><span class="cell-clip">会东县阳矿厂业开…</span></td><td><span class="cell-clip">会东县阳矿厂业开…</span></td><td>261423</td><td>充填与固废资源化…</td><td>工程类</td><td>设备供货</td><td>事业部级项目</td><td>姚潭礼</td><td>2026-01-04</td><td>2026-09-30</td><td><span class="cell-clip">会东县凯凯矿业有限…</span></td></tr>
+          <tr><td class="num">8</td><td>202512KY0027</td><td><span class="cell-clip">姜牛润铜矿厂业…</span></td><td><span class="cell-clip">姜牛润铜矿矿厂业</span></td><td>261402</td><td>采矿技术与装备…</td><td>科研类</td><td>技术服务项目</td><td>公司项目</td><td>廖牧霞</td><td>2025-11-01</td><td>2026-10-31</td><td><span class="cell-clip">九龙县器器矿矿矿…</span></td></tr>
+          <tr><td class="num">9</td><td>202512KY0029</td><td><span class="cell-clip">荆里(金) SiCOM…</span></td><td><span class="cell-clip">荆里(金) sicomi…</span></td><td>261529</td><td>矿山安全事业部</td><td>科研类</td><td>技术服务项目</td><td>公司项目</td><td>蒋蕊</td><td>2025-12-27</td><td>2026-12-26</td><td><span class="cell-clip">华阳际(金)金矿业…</span></td></tr>
+          <tr><td class="num">10</td><td>202512KY0026</td><td><span class="cell-clip">苏礼应红旗钢矿…</span></td><td>28</td><td>213994</td><td>充填与固废资源化…</td><td>工程类</td><td>设备供货项目</td><td>公司项目</td><td>周晨</td><td>2026-06-24</td><td></td><td><span class="cell-clip">湖南阳方兴矿厂矿…</span></td></tr>
+          <tr><td class="num">11</td><td>202512GC0013</td><td><span class="cell-clip">谁宗格故铸吟矿矿…</span></td><td><span class="cell-clip">谁宗格故铸吟矿矿…</span></td><td>261436</td><td>工程设计院</td><td>工程类</td><td>工程设计项目</td><td>事业部级项目</td><td>胡晓君</td><td>2025-12-23</td><td></td><td><span class="cell-clip">院后白河大宝矿业…</span></td></tr>
+          <tr><td class="num">12</td><td>202512GC0012</td><td><span class="cell-clip">信宜紫金矿矿业有限…</span></td><td><span class="cell-clip">信宜紫金矿矿业有限…</span></td><td>261430</td><td>工程设计院</td><td>工程类</td><td>工程设计项目</td><td>事业部级项目</td><td>胡晓君</td><td>2025-12-23</td><td></td><td><span class="cell-clip">信宜紫金矿业有限…</span></td></tr>
+          <tr><td class="num">13</td><td>202512GC0010</td><td><span class="cell-clip">金谷矿源(内蒙古)…</span></td><td><span class="cell-clip">金谷矿源(内蒙古)…</span></td><td>261441</td><td>工程设计院</td><td>工程类</td><td>工程设计项目</td><td>事业部级项目</td><td>胡晓君</td><td>2025-12-23</td><td></td><td><span class="cell-clip">金谷矿源(内蒙古)…</span></td></tr>
+          <tr><td class="num">14</td><td>202512KY0022</td><td><span class="cell-clip">临沂金宝路铁矿…</span></td><td><span class="cell-clip">临沂金宝路铁矿…</span></td><td>251405</td><td>矿山安全事业部</td><td>科研类</td><td>技术服务项目</td><td>事业部级项目</td><td>刘春</td><td>2025-12-23</td><td></td><td><span class="cell-clip">湖南锐生安全科技…</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 分页 -->
+    <div class="pagination">
+      <span>共 2144 条</span>
+      <div class="pages">
+        <span class="pg disabled">‹</span>
+        <span class="pg on">1</span>
+        <span class="pg">2</span>
+        <span class="pg">3</span>
+        <span class="pg">4</span>
+        <span class="pg">5</span>
+        <span class="pg">6</span>
+        <span class="pg ellipsis">…</span>
+        <span class="pg">108</span>
+        <span class="pg">›</span>
+      </div>
+      <div class="size-select">
+        <select>
+          <option>20条/页</option>
+          <option>50条/页</option>
+          <option>100条/页</option>
+        </select>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      技术支持：长沙矿山研究院有限责任公司数字与智能化事业部
+    </footer>
+  </main>
+</div>
+
+<script>
+(function () {
+  var DATA = {
+    month: {
+      count: ["2,144", "份"],
+      amount: ["418,924.86", "万元"],
+      retainAmount: ["412,753.19", "万元"],
+      receivedTotal: ["198,452.86", "万元"],
+      receiveRate: ["47.4", "%"]
+    },
+    "last-month": {
+      count: ["2,118", "份"],
+      amount: ["410,362.46", "万元"],
+      retainAmount: ["405,620.78", "万元"],
+      receivedTotal: ["193,728.45", "万元"],
+      receiveRate: ["47.1", "%"]
+    },
+    quarter: {
+      count: ["2,144", "份"],
+      amount: ["418,924.86", "万元"],
+      retainAmount: ["412,753.19", "万元"],
+      receivedTotal: ["198,452.86", "万元"],
+      receiveRate: ["47.4", "%"]
+    },
+    year: {
+      count: ["2,144", "份"],
+      amount: ["418,924.86", "万元"],
+      retainAmount: ["412,753.19", "万元"],
+      receivedTotal: ["198,452.86", "万元"],
+      receiveRate: ["47.4", "%"]
+    }
+  };
+  var chips = document.querySelectorAll("#periodChips .chip[data-period]");
+
+  function updateCards(key) {
+    var d = DATA[key];
+    if (!d) return;
+    Object.keys(d).forEach(function (k) {
+      var n = document.querySelector('.stat-card .value[data-key="' + k + '"]');
+      if (n) n.innerHTML = d[k][0] + '<span class="unit">' + d[k][1] + "</span>";
+    });
+  }
+
+  var ECHARTS_OK = typeof echarts !== "undefined";
+  if (!ECHARTS_OK) {
+    document.querySelectorAll(".chart-body").forEach(function (el) {
+      el.outerHTML = '<div class="chart-empty">图表组件加载失败，可刷新页面重试。</div>';
+    });
+    chips.forEach(function (c) {
+      c.addEventListener("click", function () {
+        chips.forEach(function (x) { x.classList.remove("on"); });
+        c.classList.add("on");
+        updateCards(c.getAttribute("data-period"));
+      });
+    });
+    return;
+  }
+
+  // 图 A · 月度新签销售合同
+  var chartA = echarts.init(document.getElementById("chartSalesTrend"));
+  var MONTHS = ["6月", "7月", "8月", "9月", "10月", "11月", "12月", "1月", "2月", "3月", "4月", "5月"];
+  var DATA_A = {
+    month: { count: [22, 25, 28, 23, 26, 24, 29, 20, 23, 26, 24, 26], amt: [7820, 8680, 9320, 8250, 9120, 8520, 9980, 7050, 8280, 9120, 8178, 8562] },
+    "last-month": { count: [22, 25, 28, 23, 26, 24, 29, 20, 23, 26, 24, 24], amt: [7820, 8680, 9320, 8250, 9120, 8520, 9980, 7050, 8280, 9120, 8178, 8178] },
+    quarter: { count: [22, 25, 28, 23, 26, 24, 29, 20, 23, 26, 24, 78], amt: [7820, 8680, 9320, 8250, 9120, 8520, 9980, 7050, 8280, 9120, 8178, 25486] },
+    year: { count: [22, 25, 28, 23, 26, 24, 29, 20, 23, 26, 24, 312], amt: [7820, 8680, 9320, 8250, 9120, 8520, 9980, 7050, 8280, 9120, 8178, 98756] }
+  };
+  function optionA(d) {
+    return {
+      tooltip: { trigger: "axis", axisPointer: { type: "cross" } },
+      legend: { data: ["新签份数", "新签金额"], top: 0, right: 10, textStyle: { fontSize: 11 } },
+      grid: { top: 35, right: 50, bottom: 24, left: 50 },
+      xAxis: { type: "category", data: MONTHS, axisLine: { lineStyle: { color: "#d9d9d9" } }, axisLabel: { fontSize: 10 } },
+      yAxis: [
+        { type: "value", name: "份", nameTextStyle: { fontSize: 10, color: "#8b96a7" }, splitLine: { lineStyle: { color: "#f0f1f5" } } },
+        { type: "value", name: "金额(万)", nameTextStyle: { fontSize: 10, color: "#8b96a7" }, splitLine: { show: false } }
+      ],
+      series: [
+        { name: "新签份数", type: "bar", data: d.count, itemStyle: { color: "#9bb8e5", borderRadius: [3, 3, 0, 0] }, barWidth: 14 },
+        { name: "新签金额", type: "line", yAxisIndex: 1, data: d.amt, smooth: true, itemStyle: { color: "#f5901b" }, lineStyle: { width: 2.5 }, symbolSize: 6 }
+      ]
+    };
+  }
+  chartA.setOption(optionA(DATA_A.month));
+
+  // 图 B · 项目类型占比
+  var chartB = echarts.init(document.getElementById("chartSalesType"));
+  var DATA_B = {
+    month: [{ name: "工程类", value: 5158.4 }, { name: "科研类", value: 3186.6 }, { name: "其他", value: 217.4 }],
+    "last-month": [{ name: "工程类", value: 4928.6 }, { name: "科研类", value: 3045.2 }, { name: "其他", value: 204.7 }],
+    quarter: [{ name: "工程类", value: 15347.6 }, { name: "科研类", value: 9484.4 }, { name: "其他", value: 654.3 }],
+    year: [{ name: "工程类", value: 59488.4 }, { name: "科研类", value: 36743.5 }, { name: "其他", value: 2524.3 }]
+  };
+  function optionB(d) {
+    return {
+      tooltip: { trigger: "item", formatter: "{b}<br/>{c} 万元 ({d}%)" },
+      legend: { orient: "vertical", right: 6, top: "middle", textStyle: { fontSize: 12 }, itemWidth: 12, itemHeight: 12 },
+      color: ["#4a90ea", "#f5901b", "#9b7afd"],
+      series: [{
+        type: "pie",
+        radius: ["50%", "75%"],
+        center: ["38%", "50%"],
+        label: { show: true, formatter: "{d}%", position: "inside", color: "#fff", fontWeight: 600, fontSize: 12 },
+        data: d
+      }]
+    };
+  }
+  chartB.setOption(optionB(DATA_B.month));
+
+  // 图 C · 各事业部销售合同占比
+  var chartC = echarts.init(document.getElementById("chartDeptSales"));
+  var DEPTS = ["矿山安全事业部", "采矿技术与装备事业部", "充填与固废资源化事业部", "工程设计院", "数字与智能化事业部", "资源利用与环保事业部", "检验中心", "湖南锐生安全科技"];
+  var DEPT_COLORS = ["#2871d8", "#4a90ea", "#1ba1b8", "#f5901b", "#3fab5b", "#9b7afd", "#4dd0e1", "#e74139"];
+  var DATA_C = {
+    month: [2486.3, 1985.4, 1742.6, 1108.5, 658.2, 387.6, 142.8, 50.5],
+    "last-month": [2378.5, 1898.6, 1666.2, 1059.4, 629.2, 370.4, 136.6, 39.6],
+    quarter: [7392.6, 5896.4, 5178.5, 3294.5, 1956.4, 1152.3, 425.6, 190.3],
+    year: [28486.4, 22725.6, 19956.8, 12692.4, 7538.6, 4438.6, 1640.5, 1278.2]
+  };
+  function optionC(d) {
+    return {
+      tooltip: { trigger: "item", formatter: "{b}<br/>{c} 万元 ({d}%)" },
+      legend: { type: "scroll", orient: "vertical", right: 6, top: "middle", textStyle: { fontSize: 11 }, itemWidth: 10, itemHeight: 10 },
+      color: DEPT_COLORS,
+      series: [{
+        type: "pie",
+        radius: ["48%", "72%"],
+        center: ["32%", "50%"],
+        avoidLabelOverlap: true,
+        label: { show: false },
+        labelLine: { show: false },
+        data: DEPTS.map(function (n, i) { return { name: n, value: d[i] }; })
+      }]
+    };
+  }
+  chartC.setOption(optionC(DATA_C.month));
+
+  chips.forEach(function (c) {
+    c.addEventListener("click", function () {
+      chips.forEach(function (x) { x.classList.remove("on"); });
+      c.classList.add("on");
+      var key = c.getAttribute("data-period");
+      updateCards(key);
+      chartA.setOption(optionA(DATA_A[key]));
+      chartB.setOption(optionB(DATA_B[key]));
+      chartC.setOption(optionC(DATA_C[key]));
+    });
+  });
+
+  window.addEventListener("resize", function () {
+    chartA.resize(); chartB.resize(); chartC.resize();
+  });
+})();
+</script>
+</body>
+</html>
