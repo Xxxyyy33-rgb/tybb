@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>部门统计表 · 长沙矿山院 数字化企业大脑</title>
+<link rel="stylesheet" href="shared.css" />
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+</head>
+<body>
+
+<!-- ========== 1. 顶部品牌栏 ========== -->
+<header class="brand-bar">
+  <div class="brand-logo">
+    <span class="name">长沙矿山院</span>
+    <span class="sub">
+      <span class="sub-zh">数字化企业大脑</span>
+      <span class="sub-en">DIGITAL ENTERPRISE BRAIN</span>
+    </span>
+  </div>
+  <div class="brand-pills">
+    <span class="brand-pill"><span class="ico">★</span>领导专属门户</span>
+    <span class="brand-pill"><span class="ico i i-switch"></span>切换系统</span>
+  </div>
+  <div class="brand-right">
+    <div class="brand-user">
+      <span class="avatar">项</span>
+      <span class="info">
+        <span class="role">项目管理员 <span class="caret i i-down"></span></span>
+        <span class="org">长沙矿山院</span>
+      </span>
+    </div>
+  </div>
+</header>
+
+<!-- ========== 2. 二级 Tab 栏 ========== -->
+<nav class="tab-bar">
+  <div class="tab-search">
+    <span>菜单搜索</span>
+    <span class="ico-search i i-search"></span>
+  </div>
+  <div class="tab-list">
+    <a class="tab-item home" href="#">首页</a>
+    <a class="tab-item active" href="部门统计表.html">部门统计表 <span class="close i i-close"></span></a>
+  </div>
+  <span class="tab-more i i-down"></span>
+</nav>
+
+<!-- ========== 3. 主布局 ========== -->
+<div class="layout">
+
+  <!-- ===== 左侧菜单 ===== -->
+  <aside class="side-menu">
+    <div class="menu-section">
+      <div class="menu-l1"><span class="ico">👤</span>人力资源管理<span class="caret i i-down"></span></div>
+    </div>
+    <div class="menu-section">
+      <div class="menu-l1"><span class="ico">💰</span>财务管理<span class="caret i i-down"></span></div>
+    </div>
+    <div class="menu-section expanded">
+      <div class="menu-l1 active"><span class="ico">📋</span>项目管理<span class="caret i i-down"></span></div>
+      <div class="menu-l2-wrap">
+        <div class="menu-l2">项目列表</div>
+        <div class="menu-l2">项目月报</div>
+        <div class="menu-l2-block expanded">
+          <div class="menu-l2 expanded active">统一报表<span class="caret i i-down"></span></div>
+          <div class="menu-l3-wrap">
+            <a class="menu-l3 active" href="部门统计表.html">部门统计表</a>
+            <a class="menu-l3" href="项目汇总表.html">项目汇总表</a>
+            <a class="menu-l3" href="项目付款表.html">项目付款表</a>
+            <a class="menu-l3" href="采购合同表.html">采购合同表</a>
+            <a class="menu-l3" href="销售合同表.html">销售合同表</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="menu-section">
+      <div class="menu-l1"><span class="ico">🔬</span>科研管理<span class="caret i i-down"></span></div>
+    </div>
+  </aside>
+
+  <!-- ===== 内容区 ===== -->
+  <main class="content">
+
+    <!-- 筛选条 -->
+    <section class="filter-bar">
+      <div class="field">
+        <label>部门名称</label>
+        <input type="text" placeholder="请输入" />
+      </div>
+      <div class="field">
+        <label>合同金额 ≥</label>
+        <input type="text" placeholder="输入金额" />
+      </div>
+      <div class="field">
+        <label>合同金额 ≤</label>
+        <input type="text" placeholder="输入金额" />
+      </div>
+      <div class="filter-actions">
+        <button class="btn btn-primary"><span class="i i-search"></span>查询</button>
+        <button class="btn">重置</button>
+        <button class="btn-text">展开<span class="caret i i-down"></span></button>
+      </div>
+    </section>
+
+    <!-- ★ 顶部统计区 -->
+    <section class="stats-panel">
+      <div class="stats-head">
+        <div class="stats-title">
+          周期统计
+          <span class="hint">基于所选周期的关键指标，可切换月/季/年范围</span>
+        </div>
+        <div class="stats-period" id="periodChips">
+          <span class="chip on" data-period="month">本月</span>
+          <span class="chip" data-period="last-month">上月</span>
+          <span class="chip" data-period="quarter">本季度</span>
+          <span class="chip" data-period="year">本年</span>
+          <span class="sep"></span>
+          <input type="date" value="2026-05-01" />
+          <span class="range-to">至</span>
+          <input type="date" value="2026-05-19" />
+          <span class="chip">查询</span>
+        </div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card c-blue">
+          <div class="label"><span class="ico i i-folder"></span>立项数</div>
+          <div class="value" data-key="newProjects">38<span class="unit">个</span></div>
+          <div class="trend">较上月 <span class="up">▲ 12.5%</span></div>
+        </div>
+        <div class="stat-card c-cyan">
+          <div class="label"><span class="ico i i-doc"></span>新签合同数</div>
+          <div class="value" data-key="newContracts">26<span class="unit">份</span></div>
+          <div class="trend">较上月 <span class="up">▲ 8.3%</span></div>
+        </div>
+        <div class="stat-card c-orange">
+          <div class="label"><span class="ico i i-money"></span>新签合同金额</div>
+          <div class="value" data-key="newContractAmount">8,562.40<span class="unit">万元</span></div>
+          <div class="trend">较上月 <span class="up">▲ 4.7%</span></div>
+        </div>
+        <div class="stat-card c-green">
+          <div class="label"><span class="ico i i-money"></span>收款金额</div>
+          <div class="value" data-key="received">6,310.85<span class="unit">万元</span></div>
+          <div class="trend">较上月 <span class="down">▼ 2.1%</span></div>
+        </div>
+        <div class="stat-card c-red">
+          <div class="label"><span class="ico i i-money"></span>付款金额</div>
+          <div class="value" data-key="paid">4,890.13<span class="unit">万元</span></div>
+          <div class="trend">较上月 <span class="up">▲ 6.4%</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ★ 图表分析区 -->
+    <section class="charts-panel">
+      <div class="chart-card">
+        <div class="chart-title"><span class="title-text">各部门合同总金额对比</span><span class="title-hint">单位：亿元</span></div>
+        <div class="chart-body" id="chartDeptAmount"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title"><span class="title-text">各部门项目数量分布</span><span class="title-hint">合计 1,804 个</span></div>
+        <div class="chart-body" id="chartDeptCount"></div>
+      </div>
+      <div class="chart-card span-2">
+        <div class="chart-title"><span class="title-text">各部门新签合同额：目标 vs 已签实际</span><span class="title-hint">单位：亿元 · 折线=完成率</span></div>
+        <div class="chart-body" id="chartNewContract"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title"><span class="title-text">各部门营业收入：目标 vs 实际</span><span class="title-hint">单位：亿元</span></div>
+        <div class="chart-body" id="chartRevenue"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title"><span class="title-text">各部门利润：目标 vs 实际</span><span class="title-hint">单位：亿元</span></div>
+        <div class="chart-body" id="chartProfit"></div>
+      </div>
+    </section>
+
+    <!-- 工具栏 -->
+    <div class="toolbar">
+      <button class="btn">导出</button>
+      <div class="tools-right">
+        <span class="icon-btn i i-refresh" title="刷新"></span>
+        <span class="icon-btn i i-sort" title="排序"></span>
+        <span class="icon-btn i i-cog" title="列设置"></span>
+      </div>
+    </div>
+
+    <!-- 表格 -->
+    <div class="table-wrap">
+      <table class="report">
+        <thead>
+          <tr>
+            <th>部门名称</th>
+            <th class="num">横向项目数量</th>
+            <th class="num">科研项目数量</th>
+            <th class="num">工程项目数量</th>
+            <th class="num">销售合同数量</th>
+            <th class="num">新签合同额目标值(元)</th>
+            <th class="num">合同总金额(元)</th>
+            <th class="num">保有合同额(元)</th>
+            <th class="num">累计收款金额(元)</th>
+            <th class="num">累计付款金额(元)</th>
+            <th class="num">营业收入目标值(元)</th>
+            <th class="num">营业收入实际值(元)</th>
+            <th class="num">利润目标值(元)</th>
+            <th class="num">利润实际值(元)</th>
+            <th class="num">累计项目盈余(元)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>充填与固废资源化事业部</td>
+            <td class="num">333</td>
+            <td class="num">142</td>
+            <td class="num">191</td>
+            <td class="num">286</td>
+            <td class="num">1,800,000,000.00</td>
+            <td class="num">1,520,614,006.93</td>
+            <td class="num">1,435,393,580.00</td>
+            <td class="num">663,774,412.28</td>
+            <td class="num">377,643,699.37</td>
+            <td class="num">700,000,000.00</td>
+            <td class="num">632,580,000.00</td>
+            <td class="num">320,000,000.00</td>
+            <td class="num">295,420,000.00</td>
+            <td class="num">286,130,712.91</td>
+          </tr>
+          <tr>
+            <td>工程设计院</td>
+            <td class="num">257</td>
+            <td class="num">68</td>
+            <td class="num">189</td>
+            <td class="num">224</td>
+            <td class="num">1,400,000,000.00</td>
+            <td class="num">1,222,831,030.94</td>
+            <td class="num">1,182,362,996.01</td>
+            <td class="num">249,438,060.17</td>
+            <td class="num">198,526,340.86</td>
+            <td class="num">300,000,000.00</td>
+            <td class="num">268,540,000.00</td>
+            <td class="num">80,000,000.00</td>
+            <td class="num">62,180,000.00</td>
+            <td class="num">50,911,719.31</td>
+          </tr>
+          <tr>
+            <td>数字与智能化事业部</td>
+            <td class="num">184</td>
+            <td class="num">96</td>
+            <td class="num">88</td>
+            <td class="num">156</td>
+            <td class="num">450,000,000.00</td>
+            <td class="num">389,507,061.58</td>
+            <td class="num">383,964,389.66</td>
+            <td class="num">180,131,986.92</td>
+            <td class="num">157,896,925.75</td>
+            <td class="num">200,000,000.00</td>
+            <td class="num">175,860,000.00</td>
+            <td class="num">30,000,000.00</td>
+            <td class="num">24,580,000.00</td>
+            <td class="num">22,235,061.17</td>
+          </tr>
+          <tr>
+            <td>检验中心</td>
+            <td class="num">46</td>
+            <td class="num">32</td>
+            <td class="num">14</td>
+            <td class="num">38</td>
+            <td class="num">55,000,000.00</td>
+            <td class="num">43,017,963.18</td>
+            <td class="num">41,103,516.18</td>
+            <td class="num">18,462,580.00</td>
+            <td class="num">12,845,538.15</td>
+            <td class="num">22,000,000.00</td>
+            <td class="num">18,540,000.00</td>
+            <td class="num">7,500,000.00</td>
+            <td class="num">5,820,000.00</td>
+            <td class="num">5,617,041.85</td>
+          </tr>
+          <tr>
+            <td>湖南锐生安全科技有限责任…</td>
+            <td class="num">44</td>
+            <td class="num">28</td>
+            <td class="num">16</td>
+            <td class="num">36</td>
+            <td class="num">35,000,000.00</td>
+            <td class="num">27,594,800.00</td>
+            <td class="num">27,544,800.00</td>
+            <td class="num">12,618,000.00</td>
+            <td class="num">8,658,903.74</td>
+            <td class="num">14,000,000.00</td>
+            <td class="num">12,180,000.00</td>
+            <td class="num">4,500,000.00</td>
+            <td class="num">3,860,000.00</td>
+            <td class="num">3,959,096.26</td>
+          </tr>
+          <tr>
+            <td>矿山安全事业部</td>
+            <td class="num">450</td>
+            <td class="num">218</td>
+            <td class="num">232</td>
+            <td class="num">382</td>
+            <td class="num">600,000,000.00</td>
+            <td class="num">501,849,198.22</td>
+            <td class="num">487,006,639.73</td>
+            <td class="num">170,957,060.93</td>
+            <td class="num">143,473,817.36</td>
+            <td class="num">200,000,000.00</td>
+            <td class="num">178,420,000.00</td>
+            <td class="num">35,000,000.00</td>
+            <td class="num">28,560,000.00</td>
+            <td class="num">27,483,243.57</td>
+          </tr>
+          <tr>
+            <td>资源利用与环保事业部</td>
+            <td class="num">128</td>
+            <td class="num">74</td>
+            <td class="num">54</td>
+            <td class="num">102</td>
+            <td class="num">220,000,000.00</td>
+            <td class="num">181,574,906.50</td>
+            <td class="num">177,006,448.70</td>
+            <td class="num">37,449,106.25</td>
+            <td class="num">31,788,038.27</td>
+            <td class="num">45,000,000.00</td>
+            <td class="num">38,920,000.00</td>
+            <td class="num">8,000,000.00</td>
+            <td class="num">6,180,000.00</td>
+            <td class="num">5,661,067.98</td>
+          </tr>
+          <tr>
+            <td>采矿技术与装备事业部</td>
+            <td class="num">362</td>
+            <td class="num">186</td>
+            <td class="num">176</td>
+            <td class="num">318</td>
+            <td class="num">480,000,000.00</td>
+            <td class="num">403,054,165.47</td>
+            <td class="num">393,155,510.47</td>
+            <td class="num">130,272,987.40</td>
+            <td class="num">77,896,797.63</td>
+            <td class="num">150,000,000.00</td>
+            <td class="num">132,580,000.00</td>
+            <td class="num">65,000,000.00</td>
+            <td class="num">53,860,000.00</td>
+            <td class="num">52,376,189.77</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>合计</td>
+            <td class="num">1,804</td>
+            <td class="num">844</td>
+            <td class="num">960</td>
+            <td class="num">1,542</td>
+            <td class="num">5,040,000,000.00</td>
+            <td class="num">4,290,043,132.82</td>
+            <td class="num">4,127,537,880.75</td>
+            <td class="num">1,463,104,193.95</td>
+            <td class="num">1,008,730,061.13</td>
+            <td class="num">1,631,000,000.00</td>
+            <td class="num">1,457,620,000.00</td>
+            <td class="num">550,000,000.00</td>
+            <td class="num">480,460,000.00</td>
+            <td class="num">454,374,132.82</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <!-- 分页 -->
+    <div class="pagination">
+      <span>共 8 条</span>
+      <div class="pages">
+        <span class="pg disabled">‹</span>
+        <span class="pg on">1</span>
+        <span class="pg disabled">›</span>
+      </div>
+      <div class="size-select">
+        <select>
+          <option>20条/页</option>
+          <option>50条/页</option>
+          <option>100条/页</option>
+        </select>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      技术支持：长沙矿山研究院有限责任公司数字与智能化事业部
+    </footer>
+  </main>
+</div>
+
+<script>
+(function () {
+  // 周期切换：4 套静态指标
+  var DATA = {
+    month: {
+      newProjects: ["38", "个"],
+      newContracts: ["26", "份"],
+      newContractAmount: ["8,562.40", "万元"],
+      received: ["6,310.85", "万元"],
+      paid: ["4,890.13", "万元"]
+    },
+    "last-month": {
+      newProjects: ["34", "个"],
+      newContracts: ["24", "份"],
+      newContractAmount: ["8,178.50", "万元"],
+      received: ["6,447.20", "万元"],
+      paid: ["4,597.80", "万元"]
+    },
+    quarter: {
+      newProjects: ["112", "个"],
+      newContracts: ["78", "份"],
+      newContractAmount: ["25,486.30", "万元"],
+      received: ["19,084.51", "万元"],
+      paid: ["14,728.66", "万元"]
+    },
+    year: {
+      newProjects: ["428", "个"],
+      newContracts: ["312", "份"],
+      newContractAmount: ["98,756.21", "万元"],
+      received: ["72,180.40", "万元"],
+      paid: ["55,890.42", "万元"]
+    }
+  };
+
+  var chips = document.querySelectorAll("#periodChips .chip[data-period]");
+
+  function updateCards(key) {
+    var d = DATA[key];
+    if (!d) return;
+    Object.keys(d).forEach(function (k) {
+      var node = document.querySelector('.stat-card .value[data-key="' + k + '"]');
+      if (node) node.innerHTML = d[k][0] + '<span class="unit">' + d[k][1] + "</span>";
+    });
+  }
+
+  // ===== ECharts 图表 =====
+  var ECHARTS_OK = typeof echarts !== "undefined";
+
+  var COLORS = ["#2871d8", "#4a90ea", "#1ba1b8", "#3fab5b", "#f5901b", "#e74139", "#9b7afd", "#4dd0e1"];
+  var DEPTS = ["矿山安全事业部", "采矿技术与装备事业部", "充填与固废资源化事业部", "工程设计院", "数字与智能化事业部", "资源利用与环保事业部", "检验中心", "湖南锐生安全科技"];
+
+  if (!ECHARTS_OK) {
+    document.querySelectorAll(".chart-body").forEach(function (el) {
+      el.outerHTML = '<div class="chart-empty">图表组件加载失败，可刷新页面重试。</div>';
+    });
+    chips.forEach(function (c) {
+      c.addEventListener("click", function () {
+        chips.forEach(function (x) { x.classList.remove("on"); });
+        c.classList.add("on");
+        updateCards(c.getAttribute("data-period"));
+      });
+    });
+    return;
+  }
+
+  // 图 A · 各部门合同总金额（亿元）
+  var chartA = echarts.init(document.getElementById("chartDeptAmount"));
+  var DATA_A = {
+    month: [50.18, 40.31, 152.06, 122.28, 38.95, 18.16, 4.30, 2.76],
+    "last-month": [48.55, 39.12, 147.32, 119.18, 37.92, 17.83, 4.21, 2.69],
+    quarter: [50.18, 40.31, 152.06, 122.28, 38.95, 18.16, 4.30, 2.76],
+    year: [50.18, 40.31, 152.06, 122.28, 38.95, 18.16, 4.30, 2.76]
+  };
+  var maxA = function (d) { return Math.max.apply(null, d) * 1.15; };
+  function optionA(d) {
+    var pairs = DEPTS.map(function (n, i) { return [n, d[i]]; }).sort(function (a, b) { return a[1] - b[1]; });
+    var cap = maxA(d);
+    return {
+      grid: { top: 10, right: 60, bottom: 10, left: 10, containLabel: true },
+      tooltip: {
+        trigger: "axis",
+        axisPointer: { type: "shadow", shadowStyle: { color: "rgba(40,113,216,0.06)" } },
+        backgroundColor: "rgba(255,255,255,0.96)",
+        borderColor: "#e4e8ee",
+        textStyle: { color: "#1f2a3a", fontSize: 12 },
+        valueFormatter: function (v) { return v.toFixed(2) + " 亿元"; }
+      },
+      xAxis: { type: "value", max: cap, show: false },
+      yAxis: {
+        type: "category",
+        data: pairs.map(function (p) { return p[0]; }),
+        axisTick: { show: false },
+        axisLine: { show: false },
+        axisLabel: { color: "#5a6878", fontSize: 12 }
+      },
+      series: [
+        {
+          type: "bar",
+          z: 1,
+          barWidth: 16,
+          barGap: "-100%",
+          silent: true,
+          data: pairs.map(function () { return { value: cap, itemStyle: { color: "#f3f5f9", borderRadius: [0, 8, 8, 0] } }; }),
+          animation: false
+        },
+        {
+          type: "bar",
+          z: 2,
+          barWidth: 16,
+          data: pairs.map(function (p, i) {
+            var ratio = i / (pairs.length - 1);
+            var r = Math.round(155 - ratio * 113);
+            var g = Math.round(192 - ratio * 79);
+            var b = Math.round(233 - ratio * 17);
+            var topColor = "rgb(" + r + "," + g + "," + b + ")";
+            return {
+              value: p[1],
+              itemStyle: {
+                borderRadius: [0, 8, 8, 0],
+                color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                  { offset: 0, color: topColor },
+                  { offset: 1, color: i >= pairs.length - 3 ? "#1453a8" : topColor }
+                ])
+              }
+            };
+          }),
+          label: {
+            show: true,
+            position: "right",
+            formatter: function (p) { return p.value.toFixed(2); },
+            color: "#1f2a3a",
+            fontSize: 12,
+            fontWeight: 600,
+            offset: [4, 0]
+          }
+        }
+      ]
+    };
+  }
+  chartA.setOption(optionA(DATA_A.month));
+
+  // 图 B · 项目数量分布（环形 + 中心总计）
+  var chartB = echarts.init(document.getElementById("chartDeptCount"));
+  var DATA_B = {
+    month: [450, 362, 333, 257, 184, 128, 46, 44],
+    "last-month": [438, 351, 322, 250, 178, 124, 44, 42],
+    quarter: [450, 362, 333, 257, 184, 128, 46, 44],
+    year: [450, 362, 333, 257, 184, 128, 46, 44]
+  };
+  function optionB(d) {
+    var total = d.reduce(function (a, b) { return a + b; }, 0);
+    return {
+      tooltip: { trigger: "item", formatter: "{b}<br/>{c} 个 ({d}%)" },
+      legend: { type: "scroll", orient: "vertical", right: 6, top: "middle", textStyle: { fontSize: 11 }, itemWidth: 10, itemHeight: 10 },
+      color: COLORS,
+      series: [{
+        type: "pie",
+        radius: ["48%", "72%"],
+        center: ["32%", "50%"],
+        avoidLabelOverlap: true,
+        label: { show: false },
+        labelLine: { show: false },
+        data: DEPTS.map(function (n, i) { return { name: n, value: d[i] }; })
+      }],
+      graphic: [
+        { type: "text", left: "32%", top: "44%", style: { text: total, textAlign: "center", fill: "#1f2a3a", fontSize: 22, fontWeight: 700 }, originX: 35 },
+        { type: "text", left: "32%", top: "58%", style: { text: "项目总数", textAlign: "center", fill: "#8b96a7", fontSize: 11 }, originX: 22 }
+      ]
+    };
+  }
+  chartB.setOption(optionB(DATA_B.month));
+
+  // ===== 部门顺序（用于新增三张目标 vs 实际图表）=====
+  var SHORT_DEPTS = ["矿山安全", "采矿装备", "充填固废", "工程设计", "数智化", "资源环保", "检验中心", "锐生安全"];
+
+  // 公共：目标 vs 实际 分组柱状图 option 工厂
+  function buildGoalVsActual(d, opts) {
+    opts = opts || {};
+    var unit = opts.unit || "亿元";
+    var showRate = !!opts.showRate;
+    var fmtVal = opts.fmtVal || function (v) { return Number(v).toFixed(2); };
+    return {
+      tooltip: {
+        trigger: "axis",
+        axisPointer: { type: "shadow" },
+        backgroundColor: "rgba(255,255,255,0.96)",
+        borderColor: "#e4e8ee",
+        textStyle: { color: "#1f2a3a", fontSize: 12 },
+        formatter: function (params) {
+          var s = params[0].axisValue + "<br/>";
+          params.forEach(function (p) {
+            var v = p.seriesName === "完成率"
+              ? Number(p.value).toFixed(1) + " %"
+              : fmtVal(p.value) + " " + unit;
+            s += p.marker + " " + p.seriesName + "：<b>" + v + "</b><br/>";
+          });
+          return s;
+        }
+      },
+      legend: {
+        data: showRate ? ["目标值", "实际值", "完成率"] : ["目标值", "实际值"],
+        top: 0, right: 10, textStyle: { fontSize: 11 }, itemWidth: 12, itemHeight: 8
+      },
+      grid: { top: 36, right: showRate ? 52 : 16, bottom: 30, left: 44 },
+      xAxis: {
+        type: "category",
+        data: SHORT_DEPTS,
+        axisLine: { lineStyle: { color: "#d9d9d9" } },
+        axisTick: { show: false },
+        axisLabel: { fontSize: 10, interval: 0, rotate: 20, color: "#5a6878" }
+      },
+      yAxis: showRate ? [
+        { type: "value", name: unit, nameTextStyle: { fontSize: 10, color: "#8b96a7" }, splitLine: { lineStyle: { color: "#f0f1f5" } } },
+        { type: "value", name: "完成率(%)", min: 0, max: 110, nameTextStyle: { fontSize: 10, color: "#8b96a7" }, splitLine: { show: false }, axisLabel: { formatter: "{value}" } }
+      ] : { type: "value", splitLine: { lineStyle: { color: "#f0f1f5" } } },
+      series: [
+        {
+          name: "目标值",
+          type: "bar",
+          data: d.target,
+          barGap: "10%",
+          barWidth: opts.barWidth || 14,
+          itemStyle: {
+            borderRadius: [4, 4, 0, 0],
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              { offset: 0, color: "#cdddf5" },
+              { offset: 1, color: "#9bb8e5" }
+            ])
+          }
+        },
+        {
+          name: "实际值",
+          type: "bar",
+          data: d.actual,
+          barWidth: opts.barWidth || 14,
+          itemStyle: {
+            borderRadius: [4, 4, 0, 0],
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              { offset: 0, color: "#4a90ea" },
+              { offset: 1, color: "#1e6dd4" }
+            ])
+          }
+        }
+      ].concat(showRate ? [{
+        name: "完成率",
+        type: "line",
+        yAxisIndex: 1,
+        data: d.target.map(function (t, i) { return t > 0 ? +(d.actual[i] / t * 100).toFixed(1) : 0; }),
+        smooth: true,
+        symbol: "circle",
+        symbolSize: 7,
+        lineStyle: { width: 2.5, color: "#f5901b" },
+        itemStyle: { color: "#f5901b", borderColor: "#fff", borderWidth: 2 },
+        label: { show: true, position: "top", formatter: "{c}%", fontSize: 10, color: "#f5901b", fontWeight: 600 }
+      }] : [])
+    };
+  }
+
+  // 图 C · 各部门新签合同额：目标 vs 已签实际（亿元，含完成率折线）
+  var chartC = echarts.init(document.getElementById("chartNewContract"));
+  var DATA_C = {
+    month:        { target: [6.00, 4.80, 18.00, 14.00, 4.50, 2.20, 0.55, 0.35], actual: [5.02, 4.03, 15.21, 12.23, 3.90, 1.82, 0.43, 0.28] },
+    "last-month": { target: [6.00, 4.80, 18.00, 14.00, 4.50, 2.20, 0.55, 0.35], actual: [4.88, 3.92, 14.73, 11.92, 3.79, 1.78, 0.42, 0.27] },
+    quarter:      { target: [6.00, 4.80, 18.00, 14.00, 4.50, 2.20, 0.55, 0.35], actual: [5.02, 4.03, 15.21, 12.23, 3.90, 1.82, 0.43, 0.28] },
+    year:         { target: [6.00, 4.80, 18.00, 14.00, 4.50, 2.20, 0.55, 0.35], actual: [5.02, 4.03, 15.21, 12.23, 3.90, 1.82, 0.43, 0.28] }
+  };
+  function optionC(d) { return buildGoalVsActual(d, { unit: "亿元", showRate: true, barWidth: 16 }); }
+  chartC.setOption(optionC(DATA_C.month));
+
+  // 图 D · 各部门营业收入：目标 vs 实际（亿元）
+  var chartD = echarts.init(document.getElementById("chartRevenue"));
+  var DATA_D = {
+    month:        { target: [2.00, 1.50, 7.00, 3.00, 2.00, 0.45, 0.22, 0.14], actual: [1.78, 1.33, 6.33, 2.69, 1.76, 0.39, 0.19, 0.12] },
+    "last-month": { target: [2.00, 1.50, 7.00, 3.00, 2.00, 0.45, 0.22, 0.14], actual: [1.72, 1.28, 6.18, 2.62, 1.71, 0.38, 0.18, 0.12] },
+    quarter:      { target: [2.00, 1.50, 7.00, 3.00, 2.00, 0.45, 0.22, 0.14], actual: [1.78, 1.33, 6.33, 2.69, 1.76, 0.39, 0.19, 0.12] },
+    year:         { target: [2.00, 1.50, 7.00, 3.00, 2.00, 0.45, 0.22, 0.14], actual: [1.78, 1.33, 6.33, 2.69, 1.76, 0.39, 0.19, 0.12] }
+  };
+  function optionD(d) { return buildGoalVsActual(d, { unit: "亿元" }); }
+  chartD.setOption(optionD(DATA_D.month));
+
+  // 图 E · 各部门利润：目标 vs 实际（亿元）
+  var chartE = echarts.init(document.getElementById("chartProfit"));
+  var DATA_E = {
+    month:        { target: [0.35, 0.65, 3.20, 0.80, 0.30, 0.080, 0.075, 0.045], actual: [0.286, 0.524, 2.954, 0.622, 0.246, 0.062, 0.058, 0.039] },
+    "last-month": { target: [0.35, 0.65, 3.20, 0.80, 0.30, 0.080, 0.075, 0.045], actual: [0.276, 0.508, 2.901, 0.612, 0.240, 0.060, 0.057, 0.038] },
+    quarter:      { target: [0.35, 0.65, 3.20, 0.80, 0.30, 0.080, 0.075, 0.045], actual: [0.286, 0.524, 2.954, 0.622, 0.246, 0.062, 0.058, 0.039] },
+    year:         { target: [0.35, 0.65, 3.20, 0.80, 0.30, 0.080, 0.075, 0.045], actual: [0.286, 0.524, 2.954, 0.622, 0.246, 0.062, 0.058, 0.039] }
+  };
+  function optionE(d) { return buildGoalVsActual(d, { unit: "亿元", fmtVal: function (v) { return Number(v).toFixed(3); } }); }
+  chartE.setOption(optionE(DATA_E.month));
+
+  // 周期切换 → 同步卡片 + 图表
+  chips.forEach(function (c) {
+    c.addEventListener("click", function () {
+      chips.forEach(function (x) { x.classList.remove("on"); });
+      c.classList.add("on");
+      var key = c.getAttribute("data-period");
+      updateCards(key);
+      chartA.setOption(optionA(DATA_A[key]));
+      chartB.setOption(optionB(DATA_B[key]));
+      chartC.setOption(optionC(DATA_C[key]));
+      chartD.setOption(optionD(DATA_D[key]));
+      chartE.setOption(optionE(DATA_E[key]));
+    });
+  });
+
+  window.addEventListener("resize", function () {
+    chartA.resize(); chartB.resize(); chartC.resize(); chartD.resize(); chartE.resize();
+  });
+})();
+</script>
+</body>
+</html>
