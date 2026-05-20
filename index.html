@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>首页 · 长沙矿山院 数字化企业大脑</title>
+<link rel="stylesheet" href="shared.css" />
+<style>
+.home-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 32px 32px;
+  background: var(--bg);
+}
+.home-welcome {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.home-welcome h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.home-welcome p {
+  font-size: 14px;
+  color: var(--text-3);
+}
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 960px;
+}
+.home-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform .15s, box-shadow .15s, border-color .15s;
+  cursor: pointer;
+}
+.home-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(40, 113, 216, .10);
+  border-color: var(--primary);
+}
+.home-card .card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+  color: #fff;
+}
+.home-card .card-icon.ic-blue { background: linear-gradient(135deg, #4a90ea, #2871d8); }
+.home-card .card-icon.ic-cyan { background: linear-gradient(135deg, #4dd0e1, #1ba1b8); }
+.home-card .card-icon.ic-orange { background: linear-gradient(135deg, #ffb547, #f5901b); }
+.home-card .card-icon.ic-green { background: linear-gradient(135deg, #5ed178, #3fab5b); }
+.home-card .card-icon.ic-purple { background: linear-gradient(135deg, #9b7afd, #7950ee); }
+.home-card .card-info { flex: 1; min-width: 0; }
+.home-card .card-info h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.home-card .card-info p {
+  font-size: 12px;
+  color: var(--text-3);
+  line-height: 1.6;
+}
+.home-card .card-arrow {
+  color: var(--text-3);
+  font-size: 18px;
+  margin-top: 2px;
+  transition: color .15s, transform .15s;
+}
+.home-card:hover .card-arrow {
+  color: var(--primary);
+  transform: translateX(3px);
+}
+</style>
+</head>
+<body>
+
+<header class="brand-bar">
+  <div class="brand-logo">
+    <span class="name">长沙矿山院</span>
+    <span class="sub">
+      <span class="sub-zh">数字化企业大脑</span>
+      <span class="sub-en">DIGITAL ENTERPRISE BRAIN</span>
+    </span>
+  </div>
+  <div class="brand-pills">
+    <span class="brand-pill"><span class="ico">★</span>领导专属门户</span>
+    <span class="brand-pill"><span class="ico i i-switch"></span>切换系统</span>
+  </div>
+  <div class="brand-right">
+    <div class="brand-user">
+      <span class="avatar">项</span>
+      <span class="info">
+        <span class="role">项目管理员 <span class="caret i i-down"></span></span>
+        <span class="org">长沙矿山院</span>
+      </span>
+    </div>
+  </div>
+</header>
+
+<nav class="tab-bar">
+  <div class="tab-search">
+    <span>菜单搜索</span>
+    <span class="ico-search i i-search"></span>
+  </div>
+  <div class="tab-list">
+    <a class="tab-item home active" href="index.html">首页</a>
+  </div>
+  <span class="tab-more i i-down"></span>
+</nav>
+
+<div class="layout">
+  <aside class="side-menu">
+    <div class="menu-section">
+      <div class="menu-l1"><span class="ico">👤</span>人力资源管理<span class="caret i i-down"></span></div>
+    </div>
+    <div class="menu-section">
+      <div class="menu-l1"><span class="ico">💰</span>财务管理<span class="caret i i-down"></span></div>
+    </div>
+    <div class="menu-section expanded">
+      <div class="menu-l1 active"><span class="ico">📋</span>项目管理<span class="caret i i-down"></span></div>
+      <div class="menu-l2-wrap">
+        <div class="menu-l2">项目列表</div>
+        <div class="menu-l2">项目月报</div>
+        <div class="menu-l2-block expanded">
+          <div class="menu-l2 expanded active">统一报表<span class="caret i i-down"></span></div>
+          <div class="menu-l3-wrap">
+            <a class="menu-l3" href="部门统计表.html">部门统计表</a>
+            <a class="menu-l3" href="项目汇总表.html">项目汇总表</a>
+            <a class="menu-l3" href="项目付款表.html">项目付款表</a>
+            <a class="menu-l3" href="采购合同表.html">采购合同表</a>
+            <a class="menu-l3" href="销售合同表.html">销售合同表</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="menu-section">
+      <div class="menu-l1"><span class="ico">🔬</span>科研管理<span class="caret i i-down"></span></div>
+    </div>
+  </aside>
+
+  <main class="home-content">
+    <div class="home-welcome">
+      <h1>统一报表中心</h1>
+      <p>横向项目管理 · 统一报表模块，请选择需要查看的报表</p>
+    </div>
+
+    <div class="home-grid">
+      <a class="home-card" href="部门统计表.html">
+        <div class="card-icon ic-blue">📊</div>
+        <div class="card-info">
+          <h3>部门统计表</h3>
+          <p>按部门汇总项目数量、合同金额、收付款及盈余情况</p>
+        </div>
+        <span class="card-arrow">›</span>
+      </a>
+      <a class="home-card" href="项目汇总表.html">
+        <div class="card-icon ic-cyan">📋</div>
+        <div class="card-info">
+          <h3>项目汇总表</h3>
+          <p>查看全部项目明细，含合同金额、收付款及项目盈余</p>
+        </div>
+        <span class="card-arrow">›</span>
+      </a>
+      <a class="home-card" href="项目付款表.html">
+        <div class="card-icon ic-orange">💰</div>
+        <div class="card-info">
+          <h3>项目付款表</h3>
+          <p>跟踪项目付款记录，按事业部、业务类型分析付款情况</p>
+        </div>
+        <span class="card-arrow">›</span>
+      </a>
+      <a class="home-card" href="采购合同表.html">
+        <div class="card-icon ic-green">🛒</div>
+        <div class="card-info">
+          <h3>采购合同表</h3>
+          <p>管理采购合同数据，统计采购金额及业务分类分布</p>
+        </div>
+        <span class="card-arrow">›</span>
+      </a>
+      <a class="home-card" href="销售合同表.html">
+        <div class="card-icon ic-purple">📈</div>
+        <div class="card-info">
+          <h3>销售合同表</h3>
+          <p>销售合同全览，含保有合同额、收款金额及收款比例</p>
+        </div>
+        <span class="card-arrow">›</span>
+      </a>
+    </div>
+
+    <footer class="site-footer" style="margin-top:auto; width:100%;">
+      技术支持：长沙矿山研究院有限责任公司数字与智能化事业部
+    </footer>
+  </main>
+</div>
+
+</body>
+</html>
